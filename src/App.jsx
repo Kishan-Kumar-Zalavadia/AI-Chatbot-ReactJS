@@ -3,35 +3,38 @@ import ChatbotIcon from "./components/ChatbotIcon";
 import ChatForm from "./components/ChatForm";
 import ChatMessage from "./components/ChatMessage";
 
-
 const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   const generateBotResponse = async (history) => {
-    const updateHistory = (text) =>{
-      setChatHistory(prev => [...prev.filter(msg => msg.text != "Thinking..."), {role: "model", text}]);
-    }
-    history = history.map(({role, text}) => ({role, parts: [{text}]}));
+    const updateHistory = (text) => {
+      setChatHistory((prev) => [
+        ...prev.filter((msg) => msg.text != "Thinking..."),
+        { role: "model", text },
+      ]);
+    };
+    history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
     const requestOptions = {
-      method: 'POST',
-      header: {"Content-Type": "application/json"},
-      body: JSON.stringify({contents: history})
-    }
-    try{
+      method: "POST",
+      header: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: history }),
+    };
+    try {
       const response = await fetch(
         import.meta.env.VITE_API_URL,
         requestOptions
       );
       const data = await response.json();
-      if(!response.ok)
-        throw new Error(data.error.message || "Something is wrong!")
-      const apiResoponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+      if (!response.ok)
+        throw new Error(data.error.message || "Something is wrong!");
+      const apiResoponseText = data.candidates[0].content.parts[0].text
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+        .trim();
       updateHistory(apiResoponseText);
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="container">
