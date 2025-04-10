@@ -1,13 +1,14 @@
 import { useRef } from "react";
-const ChatForm = () => {
+const ChatForm = ({setChatHistory}) => {
   const inputRef = useRef();
 
   const handleFormSumbit = (e) =>{
     e.preventDefault();
     const userMessage = inputRef.current.value.trim();
     if(!userMessage)
-      return
-    console.log(userMessage);
+      return;
+    inputRef.current.value = "";
+    setChatHistory((history) => [...history, {role: "user", text: userMessage}]);
   }
   return (
     <form action="#" className="chat-form" onSubmit={handleFormSumbit}>
