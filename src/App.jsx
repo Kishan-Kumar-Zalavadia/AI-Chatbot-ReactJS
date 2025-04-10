@@ -22,11 +22,26 @@ const App = () => {
             </p>
           </div>
           <div className="message user-message">
-            <ChatbotIcon />
+            {/* <ChatbotIcon /> */}
             <p className="message-text">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut necessitatibus inventore temporibus nostrum. Asperiores culpa at cumque vero sit esse natus laudantium iure, eius laborum harum doloribus. Omnis, esse minima!?
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut
+              necessitatibus inventore temporibus nostrum. Asperiores culpa at
+              cumque vero sit esse natus laudantium iure, eius laborum harum
+              doloribus. Omnis, esse minima!?
             </p>
           </div>
+        </div>
+
+        <div className="chat-footer">
+          <forrm action="#" className="chat-form">
+            <input
+              type="text"
+              placeholder="message.."
+              className="message-input"
+              required
+            />
+            <button className="material-symbols-rounded">arrow_upward</button>
+          </forrm>
         </div>
       </div>
     </div>
