@@ -1,15 +1,22 @@
 import { useRef } from "react";
-const ChatForm = ({setChatHistory}) => {
+const ChatForm = ({ setChatHistory }) => {
   const inputRef = useRef();
 
-  const handleFormSumbit = (e) =>{
+  const handleFormSumbit = (e) => {
     e.preventDefault();
     const userMessage = inputRef.current.value.trim();
-    if(!userMessage)
-      return;
+    if (!userMessage) return;
     inputRef.current.value = "";
-    setChatHistory((history) => [...history, {role: "user", text: userMessage}]);
-  }
+    setChatHistory((history) => [
+      ...history,
+      { role: "user", text: userMessage },
+    ]);
+    setTimeout(() => setChatHistory((history) => [
+      ...history,
+      { role: "model", text: "Thinking..." },
+    ]), 600);
+  };
+
   return (
     <form action="#" className="chat-form" onSubmit={handleFormSumbit}>
       <input
@@ -22,6 +29,6 @@ const ChatForm = ({setChatHistory}) => {
       <button className="material-symbols-rounded">arrow_upward</button>
     </form>
   );
-}
+};
 
-export default ChatForm
+export default ChatForm;
